@@ -2,19 +2,20 @@ from flask import *
 import json
 from os import path
 
+pahtFile = os.environ['HOME']
 
 app = Flask(__name__)
 
 # _______________  Fonctions ____________
 def readData():
-    with open('test.json') as json_file:
+    with open(pahtFile) as json_file:
         datafile = json.load(json_file)
     return datafile
 
 
 def putData(data):
-    if path.exists('test.json'):
-        with open('test.json') as json_file:
+    if path.exists(pahtFile):
+        with open(pahtFile) as json_file:
             datafile = json.load(json_file)
 
         jdata = json.loads(data)
@@ -22,7 +23,7 @@ def putData(data):
         print(adata)
         datafile["test2"].append(adata)
 
-        with open('test.json', 'w') as outfile:
+        with open(pahtFile, 'w') as outfile:
             json.dump(datafile, outfile)
         process = 'True'
     else:
@@ -53,5 +54,4 @@ def parse_request2():
 
 
 if __name__ == '__main__':
-    app.run()
-    # app.run("0.0.0.0")
+    app.run("0.0.0.0")
